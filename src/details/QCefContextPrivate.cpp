@@ -1,6 +1,7 @@
 ﻿#include "QCefContextPrivate.h"
 
 #pragma region qt_headers
+#include <QDebug>
 #include <QThread>
 #pragma endregion
 
@@ -66,6 +67,11 @@ QCefContextPrivate::cefConfig() const
 void
 QCefContextPrivate::addLocalFolderResource(const QString& path, const QString& url, int priority /*= 0*/)
 {
+  // CEF app must be valid here; after a failed CefInitialize it is not
+  if (!pApp_) {
+    qWarning() << __FUNCTION__ << "CEF app is invalid, skip";
+    return;
+  }
   pApp_->AddLocalFolderResource(path.toStdString(), url.toStdString(), priority);
 }
 
@@ -75,6 +81,11 @@ QCefContextPrivate::addArchiveResource(const QString& path,
                                        const QString& password /*= ""*/,
                                        int priority /*= 0*/)
 {
+  // CEF app must be valid here; after a failed CefInitialize it is not
+  if (!pApp_) {
+    qWarning() << __FUNCTION__ << "CEF app is invalid, skip";
+    return;
+  }
   pApp_->AddArchiveResource(path.toStdString(), url.toStdString(), password.toStdString(), priority);
 }
 

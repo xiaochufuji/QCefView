@@ -55,6 +55,7 @@ QCefContextPrivate::initialize(const QCefConfig* config)
     cefWorkerTimer_.start(kCefWorkerIntervalMs);
   }
 
+  initOk_ = true;
   return true;
 }
 
@@ -142,6 +143,7 @@ void
 QCefContextPrivate::uninitialize()
 {
   // cleanup CEF
+  initOk_ = false;
   uninitializeCef();
 }
 

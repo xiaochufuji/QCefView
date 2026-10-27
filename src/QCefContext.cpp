@@ -121,3 +121,10 @@ QCefContext::uninit()
 
   s_self = nullptr;
 }
+
+bool
+QCefContext::isInitialized() const
+{
+  Q_D(const QCefContext);
+  return d->initOk_;
+}
